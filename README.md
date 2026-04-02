@@ -45,23 +45,39 @@ problem. It answers three practical questions:
 
 ## Connection to CAWL
 
-[CAWL (Coactivation-Assembled Weight Layers)](https://microagi.ai) routes inputs
-through context-conditioned sparse structure. Its promise is that different
-task conditions activate different circuits instead of being averaged inside a
-single dense model.
+CAWL routes inputs through context-conditioned sparse circuits. Different task
+conditions should activate different circuits instead of being averaged inside
+a single dense model.
 
-The limitation is straightforward: routing can only separate conditions that
-are distinguishable in the input it receives. Two episodes at the same arm
-configuration but under different contact conditions can look identical in
-observation space, which means they can still collide inside the router.
+The limitation: routing can only separate conditions distinguishable in the
+input it receives. Two episodes at the same arm configuration but under
+different contact conditions look identical in observation space and collide
+inside the router.
 
-The low-frequency residual context is a candidate routing variable for that
-missing distinction. It captures episode-level structure that the observation
-does not directly expose. Earlier CAWL experiments in this line of work showed
-that the signal can alter routing, but the architectures tested there did not
-have enough capacity to convert that routing divergence into a clean BC gain.
-The diagnostic result here is stronger than any one downstream architecture:
-the residual itself already contains recoverable contact-grounded structure.
+The spectral decomposition addresses this at two levels:
+
+**The LF component is a stable routing signal.** Raw residuals fluctuate at
+every timestep. Feeding them into the router would cause circuit-switching
+within a single episode, negating the benefit of separate circuits. The LF
+component changes on the timescale of seconds, not milliseconds. The routing
+decision is consistent across all timesteps in an episode: same physical
+condition, same circuit, no flickering.
+
+**ICC quantifies whether the signal will separate circuits.** A useful routing
+variable must be different across episodes, so different conditions activate
+different circuits, and consistent within episodes, so the router does not
+oscillate. ICC measures exactly this ratio. `ICC(LF) = 0.59` means nearly 60%
+of the LF variance is between-episode, which is strong separation potential.
+`ICC(HF) = 0.08` means the HF component would be useless for routing because it
+barely distinguishes episodes.
+
+Earlier CAWL experiments in this line of work showed measurable routing
+divergence with the LF signal (`Jaccard 0.807 → 0.766` with context). The
+architectures tested did not have sufficient capacity to convert that
+divergence into a BC gain. The diagnostic result is stronger than any one
+downstream architecture: the residual itself contains recoverable,
+contact-grounded, episode-structured information that a sufficiently
+expressive router can exploit.
 
 ---
 
