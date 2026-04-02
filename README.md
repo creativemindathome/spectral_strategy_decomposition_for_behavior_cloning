@@ -284,10 +284,6 @@ What remains open:
 - a stronger downstream architecture that can exploit the routing signal better
 - more stable behavioral estimates under repeated held-out splits
 
-The current verdict is best described as:
-
-**informative structural evidence, modest behavioral recovery.**
-
 ---
 
 ## Limitations
@@ -298,8 +294,6 @@ The current verdict is best described as:
   scale
 - The cutoff is still fixed at `0.05 Hz`; automatic selection remains fragile
   because trivial near-DC solutions score artificially well
-- The committed analysis is intentionally leakage-aware, which makes the story
-  more honest but also less cosmetically clean than earlier versions
 
 ---
 
