@@ -118,12 +118,16 @@ Primary outputs:
 
 - `results/results.json`
 - `results/run_log.txt`
-- `results/fig0_anatomy.png`
-- `results/fig1_spectral_validation.png`
-- `results/fig2_bc_ranking.png`
-- `results/fig4_jacobian_coupling.png`
-- `results/fig5_epistemological_test.png`
-- `results/fig6_per_stratum_lf.png`
+- committed figure snapshots in `figures/`
+
+Committed figures:
+
+- [fig0_anatomy.png](figures/fig0_anatomy.png)
+- [fig1_spectral_validation.png](figures/fig1_spectral_validation.png)
+- [fig2_bc_ranking.png](figures/fig2_bc_ranking.png)
+- [fig4_jacobian_coupling.png](figures/fig4_jacobian_coupling.png)
+- [fig5_epistemological_test.png](figures/fig5_epistemological_test.png)
+- [fig6_per_stratum_lf.png](figures/fig6_per_stratum_lf.png)
 
 ---
 
@@ -145,6 +149,10 @@ between-episode variation while shedding much of the speed correlation that
 marks plain execution noise. `fig0` is the intuition figure; `fig1` is the
 dataset-level validation.
 
+[![fig0 anatomy](figures/fig0_anatomy.png)](figures/fig0_anatomy.png)
+
+[![fig1 spectral validation](figures/fig1_spectral_validation.png)](figures/fig1_spectral_validation.png)
+
 ### Finding 2: Jacobian Coupling
 
 The strongest result in the repo is not the BC gain; it is the directional
@@ -162,6 +170,8 @@ The coupling is sparse rather than uniform. That matters. A generic
 "hard episode" story would raise correlations everywhere. Instead, only
 specific act/F/T pairs light up, which is the pattern you expect if the
 residual direction reflects the robot's kinematic Jacobian.
+
+[![fig4 jacobian coupling](figures/fig4_jacobian_coupling.png)](figures/fig4_jacobian_coupling.png)
 
 ### Finding 3: Epistemological Test
 
@@ -182,6 +192,8 @@ partial correlations weaken, so the honest interpretation is not that LF is a
 perfect force proxy. The honest interpretation is that LF contains a real,
 measurable F/T-specific component beyond generic episode difficulty.
 
+[![fig5 epistemological test](figures/fig5_epistemological_test.png)](figures/fig5_epistemological_test.png)
+
 ### Finding 4: LF Magnitude Stratification
 
 The behavioral gain is not uniformly distributed. It concentrates in episodes
@@ -198,6 +210,8 @@ That distinction matters. The result says the recovered context helps most
 where the method itself believes latent episode structure is strongest. It does
 not by itself prove that every high-force episode should benefit.
 
+[![fig6 lf stratification](figures/fig6_per_stratum_lf.png)](figures/fig6_per_stratum_lf.png)
+
 ### Finding 5: Context Conditioning for BC
 
 Across five seeds and 200 epochs:
@@ -213,6 +227,8 @@ This is the weakest part of the story and it should be presented that way.
 Oracle LF helps. Random context hurts, which is a useful sanity check. HF is
 near-null, which is the expected negative control. But the deployable
 transfer-LF context remains slightly negative under the current sample budget.
+
+[![fig2 bc ranking](figures/fig2_bc_ranking.png)](figures/fig2_bc_ranking.png)
 
 ---
 
