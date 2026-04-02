@@ -1,0 +1,8 @@
+torch>=2.0
+datasets
+scipy
+scikit-learn
+matplotlib
+accelerate
+numpy
+pandas
